@@ -48,18 +48,22 @@ socket.onmessage = function(event) {
         };
     };
 };
-
 function printUsers(data) {
     delete data.UserList;
     let list = '';
     for (let key in data) {
-        const newString = `<tr><td>${data[key]}</td>
-        <td><button onclick="userLogged(${key})">выбрать</button></td>`;
+        const user = data[key];
+        const newString = `<tr>
+            <td>
+                <img src="${'http://localhost:8000/media/' + user.avatar_small}" alt="" width="40" height="40">
+                ${user.name}
+                <button onclick="userLogged(${key})">выбрать</button><hr>
+            </td>
+        </tr>`;
         list = list + newString;
-    };
-    divSelectUsers.innerHTML = `<table> ${list}</table><br>`;
+    }
+    divSelectUsers.innerHTML = `<table>${list}</table><br>`;
 };
-
 document.querySelector('.btn_create_user').addEventListener('click', () => {
     let name = document.getElementById("input_user");
     if (name.value !== "") {
